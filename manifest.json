@@ -10,8 +10,10 @@
 	],
 	"game": [
 		"bin-debug/Background.js",
+		"bin-debug/Floor.js",
 		"bin-debug/Main.js",
 		"bin-debug/ResourceLoader.js",
+		"bin-debug/Runner.js",
 		"bin-debug/SceneManager.js"
 	]
 }

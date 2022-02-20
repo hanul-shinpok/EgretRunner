@@ -1,6 +1,8 @@
 class Main extends egret.DisplayObjectContainer {
     private scene: SceneManager;
     public bg: Background;
+    public floor: Floor;
+    public character: Runner;
 
     public constructor() {
         super();

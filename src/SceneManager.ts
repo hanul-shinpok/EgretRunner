@@ -10,6 +10,7 @@ class SceneManager {
     public onStart() {
         this.createInitScene().then(() => {
             this.createScene();
+            this.update();
         });
     }
 
@@ -25,6 +26,18 @@ class SceneManager {
         SceneManager.mainScene.bg = new Background();
         SceneManager.mainScene.addChild(SceneManager.mainScene.bg);
 
+        SceneManager.mainScene.floor = new Floor();
+        SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
 
+        SceneManager.mainScene.character = new Runner();
+        SceneManager.mainScene.addChild(SceneManager.mainScene.character);
+    }
+
+    public update() {
+        egret.startTick(() => {
+            SceneManager.mainScene.bg.update();
+            SceneManager.mainScene.floor.update();
+            return true;
+        }, this);
     }
 }

@@ -45,6 +45,7 @@ var SceneManager = (function () {
         var _this = this;
         this.createInitScene().then(function () {
             _this.createScene();
+            _this.update();
         });
     };
     SceneManager.prototype.createLoader = function () {
@@ -64,6 +65,17 @@ var SceneManager = (function () {
     SceneManager.prototype.createScene = function () {
         SceneManager.mainScene.bg = new Background();
         SceneManager.mainScene.addChild(SceneManager.mainScene.bg);
+        SceneManager.mainScene.floor = new Floor();
+        SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
+        SceneManager.mainScene.character = new Runner();
+        SceneManager.mainScene.addChild(SceneManager.mainScene.character);
+    };
+    SceneManager.prototype.update = function () {
+        egret.startTick(function () {
+            SceneManager.mainScene.bg.update();
+            SceneManager.mainScene.floor.update();
+            return true;
+        }, this);
     };
     return SceneManager;
 }());

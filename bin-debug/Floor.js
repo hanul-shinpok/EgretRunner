@@ -8,26 +8,27 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
-var Background = (function (_super) {
-    __extends(Background, _super);
-    function Background() {
+var Floor = (function (_super) {
+    __extends(Floor, _super);
+    function Floor() {
         var _this = _super.call(this) || this;
-        _this.createBG();
+        _this.createFloor();
         return _this;
     }
-    Background.prototype.createBG = function () {
+    Floor.prototype.createFloor = function () {
         this.image = new egret.Bitmap();
-        this.image.texture = RES.getRes("backgroundForest_png");
+        this.image.texture = RES.getRes("floor_png");
         this.image.fillMode = egret.BitmapFillMode.REPEAT;
         this.image.width *= 3;
+        this.image.y = 512 - this.image.height;
         this.addChild(this.image);
     };
-    Background.prototype.update = function () {
+    Floor.prototype.update = function () {
         if (this.image.x == -512)
             this.image.x = 0;
-        this.image.x -= 1 * Background.SPEED;
+        this.image.x -= 1 * Floor.SPEED;
     };
-    Background.SPEED = 2;
-    return Background;
+    Floor.SPEED = 2;
+    return Floor;
 }(egret.DisplayObjectContainer));
-__reflect(Background.prototype, "Background");
+__reflect(Floor.prototype, "Floor");
