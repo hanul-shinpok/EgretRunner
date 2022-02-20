@@ -1,0 +1,15 @@
+{
+	"groups": [
+		{
+			"keys": "backgroundForest_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/backgroundForest.png",
+			"type": "image",
+			"name": "backgroundForest_png"
+		}
+	]
+}
