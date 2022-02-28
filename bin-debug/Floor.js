@@ -32,3 +32,4 @@ var Floor = (function (_super) {
     return Floor;
 }(egret.DisplayObjectContainer));
 __reflect(Floor.prototype, "Floor");
+//# sourceMappingURL=Floor.js.map

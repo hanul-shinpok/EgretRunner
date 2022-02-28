@@ -14,4 +14,12 @@ class Main extends egret.DisplayObjectContainer {
         this.scene.onStart();
     }
 
+    public touchLock() {
+        SceneManager.mainScene.touchEnabled = false;
+    }
+
+    public touchUnlock() {
+        SceneManager.mainScene.touchEnabled = true;
+    }
+
 }

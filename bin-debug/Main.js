@@ -19,6 +19,13 @@ var Main = (function (_super) {
         this.scene = new SceneManager(this);
         this.scene.onStart();
     };
+    Main.prototype.touchLock = function () {
+        SceneManager.mainScene.touchEnabled = false;
+    };
+    Main.prototype.touchUnlock = function () {
+        SceneManager.mainScene.touchEnabled = true;
+    };
     return Main;
 }(egret.DisplayObjectContainer));
 __reflect(Main.prototype, "Main");
+//# sourceMappingURL=Main.js.map
