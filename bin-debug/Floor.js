@@ -24,11 +24,11 @@ var Floor = (function (_super) {
         this.addChild(this.image);
     };
     Floor.prototype.update = function () {
-        if (this.image.x == -512)
+        if (this.image.x <= -512)
             this.image.x = 0;
         this.image.x -= 1 * Floor.SPEED;
     };
-    Floor.SPEED = 2;
+    Floor.SPEED = 3;
     return Floor;
 }(egret.DisplayObjectContainer));
 __reflect(Floor.prototype, "Floor");

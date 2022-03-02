@@ -17,6 +17,7 @@ var Main = (function (_super) {
     }
     Main.prototype.gameSceneStart = function () {
         this.scene = new SceneManager(this);
+        this.event = new egret.EventDispatcher();
         this.scene.onStart();
     };
     Main.prototype.touchLock = function () {

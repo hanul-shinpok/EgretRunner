@@ -23,11 +23,11 @@ var Background = (function (_super) {
         this.addChild(this.image);
     };
     Background.prototype.update = function () {
-        if (this.image.x == -512)
+        if (this.image.x <= -512)
             this.image.x = 0;
         this.image.x -= 1 * Background.SPEED;
     };
-    Background.SPEED = 2;
+    Background.SPEED = 3;
     return Background;
 }(egret.DisplayObjectContainer));
 __reflect(Background.prototype, "Background");

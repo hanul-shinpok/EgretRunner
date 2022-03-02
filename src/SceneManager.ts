@@ -31,12 +31,22 @@ class SceneManager {
 
         SceneManager.mainScene.character = new Runner();
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
+
+        SceneManager.mainScene.awls = new Array<Awl>();
+        SceneManager.mainScene.awls[0] = new Awl(300);
+        SceneManager.mainScene.awls[1] = new Awl(900);
+        SceneManager.mainScene.awls.forEach((awl) =>
+            SceneManager.mainScene.addChild(awl)
+        );
     }
 
     public update() {
         egret.startTick(() => {
             SceneManager.mainScene.bg.update();
             SceneManager.mainScene.floor.update();
+            SceneManager.mainScene.awls.forEach((awl) =>
+                awl.update()
+            );
             return true;
         }, this);
     }

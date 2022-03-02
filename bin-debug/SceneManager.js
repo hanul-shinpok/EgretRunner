@@ -69,11 +69,20 @@ var SceneManager = (function () {
         SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
         SceneManager.mainScene.character = new Runner();
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
+        SceneManager.mainScene.awls = new Array();
+        SceneManager.mainScene.awls[0] = new Awl(300);
+        SceneManager.mainScene.awls[1] = new Awl(900);
+        SceneManager.mainScene.awls.forEach(function (awl) {
+            return SceneManager.mainScene.addChild(awl);
+        });
     };
     SceneManager.prototype.update = function () {
         egret.startTick(function () {
             SceneManager.mainScene.bg.update();
             SceneManager.mainScene.floor.update();
+            SceneManager.mainScene.awls.forEach(function (awl) {
+                return awl.update();
+            });
             return true;
         }, this);
     };

@@ -1,5 +1,5 @@
 class Floor extends egret.DisplayObjectContainer {
-    public static SPEED = 2;
+    public static SPEED = 3;
     public image: egret.Bitmap;
 
     constructor() {
@@ -19,7 +19,7 @@ class Floor extends egret.DisplayObjectContainer {
     }
 
     public update() {
-        if (this.image.x == -512) this.image.x = 0;
+        if (this.image.x <= -512) this.image.x = 0;
         this.image.x -= 1 * Floor.SPEED;
     }
 }

@@ -18,6 +18,7 @@ var Runner = (function (_super) {
     }
     Runner.prototype.addEvent = function () {
         SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
+        SceneManager.mainScene.event.addEventListener("COLLISION", this.die, this);
     };
     Runner.prototype.createSprite = function () {
         this.sprite = SceneManager.loader.createMovieClip("runner_json", "runner_png", "run");
@@ -26,6 +27,8 @@ var Runner = (function (_super) {
         this.addChild(this.sprite);
     };
     Runner.prototype.jump = function () {
+        if (Runner.STATE == RUNNER_STATE.DIE)
+            return;
         if (Runner.STATE == RUNNER_STATE.JUMP)
             return;
         Runner.STATE = RUNNER_STATE.JUMP;
@@ -38,11 +41,18 @@ var Runner = (function (_super) {
             .to({ x: originX }, Runner.FLIGHT_TIME)
             .call(this.run, this);
     };
+    Runner.prototype.die = function () {
+        if (Runner.STATE == RUNNER_STATE.DIE)
+            return;
+        Runner.STATE = RUNNER_STATE.DIE;
+        var tween = egret.Tween.get(this.sprite);
+        tween.to({ x: this.sprite.x + Runner.POWER, y: 512 + Runner.POWER }, Runner.FLIGHT_TIME);
+    };
     Runner.prototype.run = function () {
         Runner.STATE = RUNNER_STATE.RUN;
     };
-    Runner.POWER = 70;
-    Runner.FLIGHT_TIME = 200;
+    Runner.POWER = 120;
+    Runner.FLIGHT_TIME = 320;
     return Runner;
 }(egret.DisplayObjectContainer));
 __reflect(Runner.prototype, "Runner");
@@ -50,5 +60,6 @@ var RUNNER_STATE;
 (function (RUNNER_STATE) {
     RUNNER_STATE[RUNNER_STATE["RUN"] = 0] = "RUN";
     RUNNER_STATE[RUNNER_STATE["JUMP"] = 1] = "JUMP";
+    RUNNER_STATE[RUNNER_STATE["DIE"] = 2] = "DIE";
 })(RUNNER_STATE || (RUNNER_STATE = {}));
 //# sourceMappingURL=Runner.js.map

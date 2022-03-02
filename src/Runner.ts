@@ -1,10 +1,10 @@
 class Runner extends egret.DisplayObjectContainer {
-    public static POWER = 70;
-    public static FLIGHT_TIME = 200;
+    public static POWER = 120;
+    public static FLIGHT_TIME = 320;
 
     public static STATE: RUNNER_STATE;
 
-    private sprite: egret.MovieClip;
+    public sprite: egret.MovieClip;
 
     constructor() {
         super();
@@ -14,6 +14,8 @@ class Runner extends egret.DisplayObjectContainer {
 
     private addEvent() {
         SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
+
+        SceneManager.mainScene.event.addEventListener("COLLISION", this.die, this);
     }
 
     private createSprite() {
@@ -26,6 +28,7 @@ class Runner extends egret.DisplayObjectContainer {
     }
 
     private jump() {
+        if (Runner.STATE == RUNNER_STATE.DIE) return;
         if (Runner.STATE == RUNNER_STATE.JUMP) return;
         Runner.STATE = RUNNER_STATE.JUMP;
 
@@ -40,6 +43,14 @@ class Runner extends egret.DisplayObjectContainer {
             .call(this.run, this);
     }
 
+    private die() {
+        if (Runner.STATE == RUNNER_STATE.DIE) return;
+
+        Runner.STATE = RUNNER_STATE.DIE;
+        let tween = egret.Tween.get(this.sprite);
+        tween.to({ x: this.sprite.x + Runner.POWER, y: 512 + Runner.POWER }, Runner.FLIGHT_TIME);
+    }
+
     private run() {
         Runner.STATE = RUNNER_STATE.RUN;
     }
@@ -47,5 +58,6 @@ class Runner extends egret.DisplayObjectContainer {
 
 enum RUNNER_STATE {
     RUN,
-    JUMP
+    JUMP,
+    DIE
 }

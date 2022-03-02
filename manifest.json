@@ -9,6 +9,7 @@
 		"libs/modules_ex/game/game.js"
 	],
 	"game": [
+		"bin-debug/Awl.js",
 		"bin-debug/Background.js",
 		"bin-debug/Floor.js",
 		"bin-debug/Main.js",
