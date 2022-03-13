@@ -1,6 +1,12 @@
 class SceneManager {
+    public static STAGE_ONE_WIDTH: number = 512;
+
     public static loader: ResourceLoader;
     public static mainScene: Main;
+    public static tick: number = 0;
+
+    public awlPosX: number = 1024;
+    private maxPosX: number = 512;
 
     public constructor(main) {
         SceneManager.mainScene = main;
@@ -33,20 +39,32 @@ class SceneManager {
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
 
         SceneManager.mainScene.awls = new Array<Awl>();
-        SceneManager.mainScene.awls[0] = new Awl(300);
-        SceneManager.mainScene.awls[1] = new Awl(900);
-        SceneManager.mainScene.awls.forEach((awl) =>
-            SceneManager.mainScene.addChild(awl)
-        );
+    }
+
+    // 최솟값 포함, 최댓값 제외
+    private createRandomAwls(min, max) {
+        const rand = Math.floor(Math.random() * (max - min)) + min;
+        const newAwl = new Awl(rand);
+        SceneManager.mainScene.awls.push(newAwl);
+        SceneManager.mainScene.addChild(newAwl);
+        return rand;
     }
 
     public update() {
         egret.startTick(() => {
+            SceneManager.tick += 1;
+
+            if (SceneManager.tick % 60 == 0) {
+                this.awlPosX = this.createRandomAwls(this.awlPosX, this.awlPosX + this.maxPosX);
+            }
+
             SceneManager.mainScene.bg.update();
             SceneManager.mainScene.floor.update();
-            SceneManager.mainScene.awls.forEach((awl) =>
-                awl.update()
-            );
+            if (SceneManager.mainScene.awls.length > 0) {
+                SceneManager.mainScene.awls.forEach((awl) =>
+                    awl.update()
+                );
+            }
             return true;
         }, this);
     }

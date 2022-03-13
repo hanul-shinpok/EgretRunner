@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var SceneManager = (function () {
     function SceneManager(main) {
+        this.awlPosX = 1024;
+        this.maxPosX = 512;
         SceneManager.mainScene = main;
         this.createLoader();
     }
@@ -70,22 +72,33 @@ var SceneManager = (function () {
         SceneManager.mainScene.character = new Runner();
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
         SceneManager.mainScene.awls = new Array();
-        SceneManager.mainScene.awls[0] = new Awl(300);
-        SceneManager.mainScene.awls[1] = new Awl(900);
-        SceneManager.mainScene.awls.forEach(function (awl) {
-            return SceneManager.mainScene.addChild(awl);
-        });
+    };
+    // 최솟값 포함, 최댓값 제외
+    SceneManager.prototype.createRandomAwls = function (min, max) {
+        var rand = Math.floor(Math.random() * (max - min)) + min;
+        var newAwl = new Awl(rand);
+        SceneManager.mainScene.awls.push(newAwl);
+        SceneManager.mainScene.addChild(newAwl);
+        return rand;
     };
     SceneManager.prototype.update = function () {
+        var _this = this;
         egret.startTick(function () {
+            SceneManager.tick += 1;
+            if (SceneManager.tick % 60 == 0) {
+                _this.awlPosX = _this.createRandomAwls(_this.awlPosX, _this.awlPosX + _this.maxPosX);
+            }
             SceneManager.mainScene.bg.update();
             SceneManager.mainScene.floor.update();
-            SceneManager.mainScene.awls.forEach(function (awl) {
-                return awl.update();
-            });
+            if (SceneManager.mainScene.awls.length > 0) {
+                SceneManager.mainScene.awls.forEach(function (awl) {
+                    return awl.update();
+                });
+            }
             return true;
         }, this);
     };
+    SceneManager.tick = 0;
     return SceneManager;
 }());
 __reflect(SceneManager.prototype, "SceneManager");

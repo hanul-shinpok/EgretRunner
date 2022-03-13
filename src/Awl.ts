@@ -11,7 +11,7 @@ class Awl extends egret.DisplayObjectContainer {
         this.image = new egret.Bitmap();
         this.image.texture = RES.getRes("awl_png");
 
-        this.image.y = 512 - this.image.height * 2.8;
+        this.image.y = SceneManager.STAGE_ONE_WIDTH - this.image.height * 2.8;
         this.image.x = x;
         this.addChild(this.image);
     }
@@ -30,14 +30,22 @@ class Awl extends egret.DisplayObjectContainer {
         } else return false;
     }
 
+    private beforeBound;
     private isCollisionToCharacter() {
-        const rectAwl = new egret.Rectangle(this.image.x, this.image.y, this.image.width, this.image.height);
-        const rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x, SceneManager.mainScene.character.sprite.y,
-            SceneManager.mainScene.character.sprite.width, SceneManager.mainScene.character.sprite.height);
-        
+        const rectAwl = new egret.Rectangle(this.image.x + 5, this.image.y + 5, this.image.width - 10, this.image.height - 10);
+        const rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y,
+             Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
+
+        const bound = this.boundTest(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y,
+             Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
+
         if (rectAwl.intersects(rectCharacter)) {
             SceneManager.mainScene.event.dispatchEventWith("COLLISION");
         }
+
+        if (this.beforeBound) this.beforeBound.parent.removeChild(this.beforeBound);
+        this.beforeBound = bound;
+
     }
 
     public destroy() {
@@ -45,5 +53,15 @@ class Awl extends egret.DisplayObjectContainer {
             this.parent.removeChild(this);
             this.removeChild(this.image);
         }
+    }
+
+    private boundTest(x, y, width, height) {
+        const bound = new egret.Shape();
+        bound.graphics.beginFill(0xff0000);
+        bound.graphics.drawRect(x, y, width, height);
+        bound.graphics.endFill();
+        this.addChild(bound);
+
+        return bound;
     }
 }

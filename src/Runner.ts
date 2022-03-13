@@ -1,6 +1,9 @@
 class Runner extends egret.DisplayObjectContainer {
     public static POWER = 120;
-    public static FLIGHT_TIME = 320;
+    public static FLIGHT_TIME = 360;
+
+    public static CHARACTER_WIDTH = 70;
+    public static CHARACTER_HEIGHT = 220;
 
     public static STATE: RUNNER_STATE;
 
@@ -33,13 +36,11 @@ class Runner extends egret.DisplayObjectContainer {
         Runner.STATE = RUNNER_STATE.JUMP;
 
         const originY = this.sprite.y;
-        const originX = this.sprite.x;
 
         let tween = egret.Tween.get(this.sprite);
-        tween.to({ x: this.sprite.x + Runner.POWER, y: this.sprite.y - Runner.POWER }, Runner.FLIGHT_TIME)
+        tween.to({ x: this.sprite.x, y: this.sprite.y - Runner.POWER }, Runner.FLIGHT_TIME)
             .wait(Runner.FLIGHT_TIME)
             .to({ y: originY }, Runner.FLIGHT_TIME)
-            .to({ x: originX }, Runner.FLIGHT_TIME)
             .call(this.run, this);
     }
 
@@ -48,7 +49,7 @@ class Runner extends egret.DisplayObjectContainer {
 
         Runner.STATE = RUNNER_STATE.DIE;
         let tween = egret.Tween.get(this.sprite);
-        tween.to({ x: this.sprite.x + Runner.POWER, y: 512 + Runner.POWER }, Runner.FLIGHT_TIME);
+        tween.to({ x: this.sprite.x + Runner.POWER, y: SceneManager.STAGE_ONE_WIDTH + Runner.POWER }, Runner.FLIGHT_TIME);
     }
 
     private run() {

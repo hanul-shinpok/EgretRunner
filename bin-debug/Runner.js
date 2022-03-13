@@ -33,12 +33,10 @@ var Runner = (function (_super) {
             return;
         Runner.STATE = RUNNER_STATE.JUMP;
         var originY = this.sprite.y;
-        var originX = this.sprite.x;
         var tween = egret.Tween.get(this.sprite);
-        tween.to({ x: this.sprite.x + Runner.POWER, y: this.sprite.y - Runner.POWER }, Runner.FLIGHT_TIME)
+        tween.to({ x: this.sprite.x, y: this.sprite.y - Runner.POWER }, Runner.FLIGHT_TIME)
             .wait(Runner.FLIGHT_TIME)
             .to({ y: originY }, Runner.FLIGHT_TIME)
-            .to({ x: originX }, Runner.FLIGHT_TIME)
             .call(this.run, this);
     };
     Runner.prototype.die = function () {
@@ -52,7 +50,9 @@ var Runner = (function (_super) {
         Runner.STATE = RUNNER_STATE.RUN;
     };
     Runner.POWER = 120;
-    Runner.FLIGHT_TIME = 320;
+    Runner.FLIGHT_TIME = 360;
+    Runner.CHARACTER_WIDTH = 70;
+    Runner.CHARACTER_HEIGHT = 220;
     return Runner;
 }(egret.DisplayObjectContainer));
 __reflect(Runner.prototype, "Runner");

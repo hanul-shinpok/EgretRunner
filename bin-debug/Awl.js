@@ -37,17 +37,29 @@ var Awl = (function (_super) {
             return false;
     };
     Awl.prototype.isCollisionToCharacter = function () {
-        var rectAwl = new egret.Rectangle(this.image.x, this.image.y, this.image.width, this.image.height);
-        var rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x, SceneManager.mainScene.character.sprite.y, SceneManager.mainScene.character.sprite.width, SceneManager.mainScene.character.sprite.height);
+        var rectAwl = new egret.Rectangle(this.image.x + 5, this.image.y + 5, this.image.width - 10, this.image.height - 10);
+        var rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y, Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
+        var bound = this.boundTest(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y, Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
         if (rectAwl.intersects(rectCharacter)) {
             SceneManager.mainScene.event.dispatchEventWith("COLLISION");
         }
+        if (this.beforeBound)
+            this.beforeBound.parent.removeChild(this.beforeBound);
+        this.beforeBound = bound;
     };
     Awl.prototype.destroy = function () {
         if (this.parent && this.image) {
             this.parent.removeChild(this);
             this.removeChild(this.image);
         }
+    };
+    Awl.prototype.boundTest = function (x, y, width, height) {
+        var bound = new egret.Shape();
+        bound.graphics.beginFill(0xff0000);
+        bound.graphics.drawRect(x, y, width, height);
+        bound.graphics.endFill();
+        this.addChild(bound);
+        return bound;
     };
     Awl.SPEED = 3;
     return Awl;
