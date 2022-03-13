@@ -18,7 +18,7 @@ var Awl = (function (_super) {
     Awl.prototype.createAwl = function (x) {
         this.image = new egret.Bitmap();
         this.image.texture = RES.getRes("awl_png");
-        this.image.y = 512 - this.image.height * 2.8;
+        this.image.y = SceneManager.STAGE_ONE_WIDTH - this.image.height * 2.8;
         this.image.x = x;
         this.addChild(this.image);
     };
@@ -39,13 +39,9 @@ var Awl = (function (_super) {
     Awl.prototype.isCollisionToCharacter = function () {
         var rectAwl = new egret.Rectangle(this.image.x + 5, this.image.y + 5, this.image.width - 10, this.image.height - 10);
         var rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y, Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
-        var bound = this.boundTest(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y, Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
         if (rectAwl.intersects(rectCharacter)) {
             SceneManager.mainScene.event.dispatchEventWith("COLLISION");
         }
-        if (this.beforeBound)
-            this.beforeBound.parent.removeChild(this.beforeBound);
-        this.beforeBound = bound;
     };
     Awl.prototype.destroy = function () {
         if (this.parent && this.image) {

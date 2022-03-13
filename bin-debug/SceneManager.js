@@ -85,7 +85,7 @@ var SceneManager = (function () {
         var _this = this;
         egret.startTick(function () {
             SceneManager.tick += 1;
-            if (SceneManager.tick % 60 == 0) {
+            if (SceneManager.tick % 90 == 0) {
                 _this.awlPosX = _this.createRandomAwls(_this.awlPosX, _this.awlPosX + _this.maxPosX);
             }
             SceneManager.mainScene.bg.update();
@@ -98,6 +98,7 @@ var SceneManager = (function () {
             return true;
         }, this);
     };
+    SceneManager.STAGE_ONE_WIDTH = 512;
     SceneManager.tick = 0;
     return SceneManager;
 }());

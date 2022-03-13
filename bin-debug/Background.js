@@ -23,7 +23,7 @@ var Background = (function (_super) {
         this.addChild(this.image);
     };
     Background.prototype.update = function () {
-        if (this.image.x <= -512)
+        if (this.image.x <= -SceneManager.STAGE_ONE_WIDTH)
             this.image.x = 0;
         this.image.x -= 1 * Background.SPEED;
     };

@@ -44,13 +44,13 @@ var Runner = (function (_super) {
             return;
         Runner.STATE = RUNNER_STATE.DIE;
         var tween = egret.Tween.get(this.sprite);
-        tween.to({ x: this.sprite.x + Runner.POWER, y: 512 + Runner.POWER }, Runner.FLIGHT_TIME);
+        tween.to({ x: this.sprite.x + Runner.POWER, y: SceneManager.STAGE_ONE_WIDTH + Runner.POWER }, Runner.FLIGHT_TIME);
     };
     Runner.prototype.run = function () {
         Runner.STATE = RUNNER_STATE.RUN;
     };
     Runner.POWER = 120;
-    Runner.FLIGHT_TIME = 360;
+    Runner.FLIGHT_TIME = 120 * Background.SPEED;
     Runner.CHARACTER_WIDTH = 70;
     Runner.CHARACTER_HEIGHT = 220;
     return Runner;

@@ -20,11 +20,11 @@ var Floor = (function (_super) {
         this.image.texture = RES.getRes("floor_png");
         this.image.fillMode = egret.BitmapFillMode.REPEAT;
         this.image.width *= 3;
-        this.image.y = 512 - this.image.height;
+        this.image.y = SceneManager.STAGE_ONE_WIDTH - this.image.height;
         this.addChild(this.image);
     };
     Floor.prototype.update = function () {
-        if (this.image.x <= -512)
+        if (this.image.x <= -SceneManager.STAGE_ONE_WIDTH)
             this.image.x = 0;
         this.image.x -= 1 * Floor.SPEED;
     };

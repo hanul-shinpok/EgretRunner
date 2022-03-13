@@ -54,7 +54,7 @@ class SceneManager {
         egret.startTick(() => {
             SceneManager.tick += 1;
 
-            if (SceneManager.tick % 60 == 0) {
+            if (SceneManager.tick % 90 == 0) {
                 this.awlPosX = this.createRandomAwls(this.awlPosX, this.awlPosX + this.maxPosX);
             }
 

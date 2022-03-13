@@ -1,6 +1,6 @@
 class Runner extends egret.DisplayObjectContainer {
     public static POWER = 120;
-    public static FLIGHT_TIME = 360;
+    public static FLIGHT_TIME = 120 * Background.SPEED;
 
     public static CHARACTER_WIDTH = 70;
     public static CHARACTER_HEIGHT = 220;
