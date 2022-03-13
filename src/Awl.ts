@@ -36,16 +36,9 @@ class Awl extends egret.DisplayObjectContainer {
         const rectCharacter = new egret.Rectangle(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y,
              Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
 
-        const bound = this.boundTest(SceneManager.mainScene.character.sprite.x + 80, SceneManager.mainScene.character.sprite.y,
-             Runner.CHARACTER_WIDTH, Runner.CHARACTER_HEIGHT);
-
         if (rectAwl.intersects(rectCharacter)) {
             SceneManager.mainScene.event.dispatchEventWith("COLLISION");
         }
-
-        if (this.beforeBound) this.beforeBound.parent.removeChild(this.beforeBound);
-        this.beforeBound = bound;
-
     }
 
     public destroy() {
