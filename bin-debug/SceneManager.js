@@ -47,7 +47,7 @@ var SceneManager = (function () {
         var _this = this;
         this.createInitScene().then(function () {
             _this.createScene();
-            _this.update();
+            _this.setStart();
         });
     };
     SceneManager.prototype.createLoader = function () {
@@ -69,9 +69,11 @@ var SceneManager = (function () {
         SceneManager.mainScene.addChild(SceneManager.mainScene.bg);
         SceneManager.mainScene.floor = new Floor();
         SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
+        SceneManager.mainScene.awls = new Array();
+    };
+    SceneManager.prototype.createCharacter = function () {
         SceneManager.mainScene.character = new Runner();
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
-        SceneManager.mainScene.awls = new Array();
     };
     // 최솟값 포함, 최댓값 제외
     SceneManager.prototype.createRandomAwls = function (min, max) {
@@ -82,6 +84,9 @@ var SceneManager = (function () {
         return rand;
     };
     SceneManager.prototype.update = function () {
+        SceneManager.mainScene.removeChild(this.imageStart);
+        SceneManager.mainScene.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.update, this);
+        this.createCharacter();
         egret.startTick(this.updateTick, this);
     };
     SceneManager.prototype.updateTick = function () {
@@ -101,6 +106,13 @@ var SceneManager = (function () {
             });
         }
         return true;
+    };
+    SceneManager.prototype.setStart = function () {
+        this.imageStart = new egret.Bitmap();
+        this.imageStart.texture = RES.getRes("asset_start_png");
+        this.imageStart.x = 256;
+        SceneManager.mainScene.addChild(this.imageStart);
+        SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.update, this);
     };
     SceneManager.prototype.setClear = function () {
         var image = new egret.Bitmap();

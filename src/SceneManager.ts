@@ -8,6 +8,8 @@ class SceneManager {
     public awlPosX: number = 1024;
     private maxPosX: number = 512;
 
+    private imageStart: egret.Bitmap;
+
     public constructor(main) {
         SceneManager.mainScene = main;
         this.createLoader();
@@ -16,7 +18,7 @@ class SceneManager {
     public onStart() {
         this.createInitScene().then(() => {
             this.createScene();
-            this.update();
+            this.setStart();
         });
     }
 
@@ -35,10 +37,12 @@ class SceneManager {
         SceneManager.mainScene.floor = new Floor();
         SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
 
+        SceneManager.mainScene.awls = new Array<Awl>();
+    }
+
+    private createCharacter() {
         SceneManager.mainScene.character = new Runner();
         SceneManager.mainScene.addChild(SceneManager.mainScene.character);
-
-        SceneManager.mainScene.awls = new Array<Awl>();
     }
 
     // 최솟값 포함, 최댓값 제외
@@ -51,6 +55,10 @@ class SceneManager {
     }
 
     public update() {
+        SceneManager.mainScene.removeChild(this.imageStart);
+        SceneManager.mainScene.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.update, this);
+
+        this.createCharacter();
         egret.startTick(this.updateTick, this);
     }
 
@@ -75,6 +83,17 @@ class SceneManager {
         }
         return true;
     }
+
+    private setStart() {
+        this.imageStart = new egret.Bitmap();
+        this.imageStart.texture = RES.getRes("asset_start_png");
+
+        this.imageStart.x = 256;
+        SceneManager.mainScene.addChild(this.imageStart);
+
+        SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.update, this);
+    }
+
 
     private setClear() {
         const image = new egret.Bitmap();
