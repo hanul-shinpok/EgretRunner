@@ -51,21 +51,36 @@ class SceneManager {
     }
 
     public update() {
-        egret.startTick(() => {
-            SceneManager.tick += 1;
+        egret.startTick(this.updateTick, this);
+    }
 
-            if (SceneManager.tick % 90 == 0) {
-                this.awlPosX = this.createRandomAwls(this.awlPosX, this.awlPosX + this.maxPosX);
-            }
+    private updateTick() {
+        if (SceneManager.tick > 900 && Runner.STATE != RUNNER_STATE.DIE) {
+            egret.stopTick(this.updateTick, this);
+            this.setClear();
+        }
+        SceneManager.tick += 1;
 
-            SceneManager.mainScene.bg.update();
-            SceneManager.mainScene.floor.update();
-            if (SceneManager.mainScene.awls.length > 0) {
-                SceneManager.mainScene.awls.forEach((awl) =>
-                    awl.update()
-                );
-            }
-            return true;
-        }, this);
+        if (SceneManager.tick % 90 == 0) {
+            this.awlPosX = this.createRandomAwls(this.awlPosX, this.awlPosX + this.maxPosX);
+        }
+
+        SceneManager.mainScene.bg.update();
+        SceneManager.mainScene.floor.update();
+
+        if (SceneManager.mainScene.awls.length > 0) {
+            SceneManager.mainScene.awls.forEach((awl) =>
+                awl.update()
+            );
+        }
+        return true;
+    }
+
+    private setClear() {
+        const image = new egret.Bitmap();
+        image.texture = RES.getRes("asset_clear_png");
+
+        image.x = 256;
+        SceneManager.mainScene.addChild(image);
     }
 }

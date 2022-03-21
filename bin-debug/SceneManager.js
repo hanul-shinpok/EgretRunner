@@ -82,21 +82,31 @@ var SceneManager = (function () {
         return rand;
     };
     SceneManager.prototype.update = function () {
-        var _this = this;
-        egret.startTick(function () {
-            SceneManager.tick += 1;
-            if (SceneManager.tick % 90 == 0) {
-                _this.awlPosX = _this.createRandomAwls(_this.awlPosX, _this.awlPosX + _this.maxPosX);
-            }
-            SceneManager.mainScene.bg.update();
-            SceneManager.mainScene.floor.update();
-            if (SceneManager.mainScene.awls.length > 0) {
-                SceneManager.mainScene.awls.forEach(function (awl) {
-                    return awl.update();
-                });
-            }
-            return true;
-        }, this);
+        egret.startTick(this.updateTick, this);
+    };
+    SceneManager.prototype.updateTick = function () {
+        if (SceneManager.tick > 900 && Runner.STATE != RUNNER_STATE.DIE) {
+            egret.stopTick(this.updateTick, this);
+            this.setClear();
+        }
+        SceneManager.tick += 1;
+        if (SceneManager.tick % 90 == 0) {
+            this.awlPosX = this.createRandomAwls(this.awlPosX, this.awlPosX + this.maxPosX);
+        }
+        SceneManager.mainScene.bg.update();
+        SceneManager.mainScene.floor.update();
+        if (SceneManager.mainScene.awls.length > 0) {
+            SceneManager.mainScene.awls.forEach(function (awl) {
+                return awl.update();
+            });
+        }
+        return true;
+    };
+    SceneManager.prototype.setClear = function () {
+        var image = new egret.Bitmap();
+        image.texture = RES.getRes("asset_clear_png");
+        image.x = 256;
+        SceneManager.mainScene.addChild(image);
     };
     SceneManager.STAGE_ONE_WIDTH = 512;
     SceneManager.tick = 0;

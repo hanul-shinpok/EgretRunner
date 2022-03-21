@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "backgroundForest_png,floor_png,runner_json,runner_png,awl_png",
+			"keys": "backgroundForest_png,floor_png,runner_json,runner_png,awl_png,asset_clear_png",
 			"name": "preload"
 		}
 	],
@@ -27,9 +27,14 @@
 			"name": "runner_png"
 		},
 		{
-			"name": "awl_png",
+			"url": "assets/awl.png",
 			"type": "image",
-			"url": "assets/awl.png"
+			"name": "awl_png"
+		},
+		{
+			"url": "assets/asset_clear.png",
+			"type": "image",
+			"name": "asset_clear_png"
 		}
 	]
 }
