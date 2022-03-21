@@ -49,6 +49,9 @@ var Runner = (function (_super) {
     Runner.prototype.run = function () {
         Runner.STATE = RUNNER_STATE.RUN;
     };
+    Runner.prototype.stop = function () {
+        this.sprite.stop();
+    };
     Runner.POWER = 120;
     Runner.FLIGHT_TIME = 120 * Background.SPEED;
     Runner.CHARACTER_WIDTH = 70;

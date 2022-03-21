@@ -82,5 +82,9 @@ class SceneManager {
 
         image.x = 256;
         SceneManager.mainScene.addChild(image);
+        SceneManager.mainScene.character.stop();
+        SceneManager.mainScene.awls.forEach((awl) =>
+            awl.destroy()
+        );
     }
 }

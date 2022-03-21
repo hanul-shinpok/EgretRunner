@@ -55,6 +55,10 @@ class Runner extends egret.DisplayObjectContainer {
     private run() {
         Runner.STATE = RUNNER_STATE.RUN;
     }
+
+    public stop() {
+        this.sprite.stop();
+    }
 }
 
 enum RUNNER_STATE {

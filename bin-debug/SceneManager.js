@@ -107,6 +107,10 @@ var SceneManager = (function () {
         image.texture = RES.getRes("asset_clear_png");
         image.x = 256;
         SceneManager.mainScene.addChild(image);
+        SceneManager.mainScene.character.stop();
+        SceneManager.mainScene.awls.forEach(function (awl) {
+            return awl.destroy();
+        });
     };
     SceneManager.STAGE_ONE_WIDTH = 512;
     SceneManager.tick = 0;
