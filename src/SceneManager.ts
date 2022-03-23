@@ -1,5 +1,6 @@
 class SceneManager {
     public static STAGE_ONE_WIDTH: number = 512;
+    public static STAGE_HEIGHT: number = 512;
 
     public static loader: ResourceLoader;
     public static mainScene: Main;
@@ -31,10 +32,14 @@ class SceneManager {
     }
 
     private createScene() {
-        SceneManager.mainScene.bg = new Background();
+        SceneManager.mainScene.bg = new BackgroundObject();
+        SceneManager.mainScene.bg.getResource("backgroundForest_png");
+        SceneManager.mainScene.bg.imageY = 0;
         SceneManager.mainScene.addChild(SceneManager.mainScene.bg);
 
-        SceneManager.mainScene.floor = new Floor();
+        SceneManager.mainScene.floor = new BackgroundObject();
+        SceneManager.mainScene.floor.getResource("floor_png");
+        SceneManager.mainScene.floor.imageY = SceneManager.STAGE_HEIGHT - SceneManager.mainScene.floor.image.height;
         SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
 
         SceneManager.mainScene.awls = new Array<Awl>();

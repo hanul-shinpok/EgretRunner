@@ -1,6 +1,6 @@
 class Runner extends egret.DisplayObjectContainer {
     public static POWER = 120;
-    public static FLIGHT_TIME = 120 * Background.SPEED;
+    public static FLIGHT_TIME = 120 * 3;
 
     public static CHARACTER_WIDTH = 70;
     public static CHARACTER_HEIGHT = 220;
@@ -17,8 +17,12 @@ class Runner extends egret.DisplayObjectContainer {
 
     private addEvent() {
         SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
-
         SceneManager.mainScene.event.addEventListener("COLLISION", this.die, this);
+    }
+
+    private removeEvent() {
+        SceneManager.mainScene.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
+        SceneManager.mainScene.event.removeEventListener("COLLISION", this.die, this);
     }
 
     private createSprite() {
@@ -58,6 +62,7 @@ class Runner extends egret.DisplayObjectContainer {
 
     public stop() {
         this.sprite.stop();
+        this.removeEvent();
     }
 }
 

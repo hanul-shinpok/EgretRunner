@@ -20,6 +20,10 @@ var Runner = (function (_super) {
         SceneManager.mainScene.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
         SceneManager.mainScene.event.addEventListener("COLLISION", this.die, this);
     };
+    Runner.prototype.removeEvent = function () {
+        SceneManager.mainScene.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.jump, this);
+        SceneManager.mainScene.event.removeEventListener("COLLISION", this.die, this);
+    };
     Runner.prototype.createSprite = function () {
         this.sprite = SceneManager.loader.createMovieClip("runner_json", "runner_png", "run");
         this.sprite.gotoAndPlay("run", -1);
@@ -51,9 +55,10 @@ var Runner = (function (_super) {
     };
     Runner.prototype.stop = function () {
         this.sprite.stop();
+        this.removeEvent();
     };
     Runner.POWER = 120;
-    Runner.FLIGHT_TIME = 120 * Background.SPEED;
+    Runner.FLIGHT_TIME = 120 * 3;
     Runner.CHARACTER_WIDTH = 70;
     Runner.CHARACTER_HEIGHT = 220;
     return Runner;

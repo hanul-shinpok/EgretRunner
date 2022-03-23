@@ -3,8 +3,8 @@ class Main extends egret.DisplayObjectContainer {
 
     public event: egret.EventDispatcher;
 
-    public bg: Background;
-    public floor: Floor;
+    public bg: BackgroundObject;
+    public floor: BackgroundObject;
     public character: Runner;
     public awls: Array<Awl>;
 

@@ -65,9 +65,13 @@ var SceneManager = (function () {
         });
     };
     SceneManager.prototype.createScene = function () {
-        SceneManager.mainScene.bg = new Background();
+        SceneManager.mainScene.bg = new BackgroundObject();
+        SceneManager.mainScene.bg.getResource("backgroundForest_png");
+        SceneManager.mainScene.bg.imageY = 0;
         SceneManager.mainScene.addChild(SceneManager.mainScene.bg);
-        SceneManager.mainScene.floor = new Floor();
+        SceneManager.mainScene.floor = new BackgroundObject();
+        SceneManager.mainScene.floor.getResource("floor_png");
+        SceneManager.mainScene.floor.imageY = SceneManager.STAGE_HEIGHT - SceneManager.mainScene.floor.image.height;
         SceneManager.mainScene.addChild(SceneManager.mainScene.floor);
         SceneManager.mainScene.awls = new Array();
     };
@@ -125,6 +129,7 @@ var SceneManager = (function () {
         });
     };
     SceneManager.STAGE_ONE_WIDTH = 512;
+    SceneManager.STAGE_HEIGHT = 512;
     SceneManager.tick = 0;
     return SceneManager;
 }());
