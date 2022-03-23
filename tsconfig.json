@@ -9,8 +9,7 @@
             "es2015.promise"
         ],
         "types": [],
-        "sourceMap": true,
-        "inlineSources": true
+        "sourceMap": true
     },
     "include": [
         "src",
